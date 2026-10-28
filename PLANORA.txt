@@ -1,0 +1,266 @@
+
+# ==========================================
+#                 PLANORA
+#          SMART SCHEDULING APP
+# ==========================================
+
+# Stores account information
+accounts = {}
+
+
+# ==========================================
+#          CREATE ACCOUNT FUNCTION
+# ==========================================
+
+def Create_Account():
+
+    print("\n==========================================")
+    print("          CREATE PLANORA ACCOUNT")
+    print("==========================================")
+
+    # Personal Information
+    name = input("Enter your full name: ").strip()
+
+    # Username
+    while True:
+        username = input("Create a username: ").strip()
+
+        if username == "":
+            print("Username cannot be empty. Please try again.")
+
+        elif username in accounts:
+            print("Username already exists. Please choose another.")
+
+        else:
+            break
+
+    # School Email
+    while True:
+        email = input("Enter your school email: ").strip()
+
+        if "@" not in email or "." not in email:
+            print("Invalid email format. Please try again.")
+            continue
+
+        confirm_email = input("Confirm your school email: ").strip()
+
+        if email == confirm_email:
+            print("School email confirmed!")
+            break
+
+        else:
+            print("Emails do not match. Please try again.")
+
+    # Password
+    while True:
+        password = input(
+            "Create your password (8 characters): "
+        )
+
+        if len(password) != 8:
+            print("Password must be exactly 8 characters.")
+            continue
+
+        confirm_password = input(
+            "Confirm your password: "
+        )
+
+        if password == confirm_password:
+            print("Password created successfully!")
+            break
+
+        else:
+            print("Passwords do not match. Please try again.")
+
+    # Academic Information
+    while True:
+        try:
+            year_level = int(input("Enter your year level: "))
+
+            if year_level > 0:
+                break
+            else:
+                print("Please enter a valid year level.")
+
+        except ValueError:
+            print("Please enter a number.")
+
+    academic_year = input(
+        "Enter your academic year (example: 2026-2027): "
+    ).strip()
+
+    section = input("Enter your section: ").strip()
+
+    # Subjects
+    while True:
+        try:
+            number_of_subjects = int(
+                input("How many subjects do you have? ")
+            )
+
+            if number_of_subjects > 0:
+                break
+            else:
+                print("You must have at least 1 subject.")
+
+        except ValueError:
+            print("Please enter a number.")
+
+    subjects = []
+
+    for i in range(number_of_subjects):
+
+        subject = input(
+            f"Enter subject {i + 1}: "
+        ).strip()
+
+        subjects.append(subject)
+
+    # Account Type
+    print("\nChoose your account type:")
+    print("1. Student")
+    print("2. VIP")
+
+    while True:
+
+        account_choice = input(
+            "Enter your choice (1 or 2): "
+        ).strip()
+
+        if account_choice == "1":
+            account_type = "Student"
+            break
+
+        elif account_choice == "2":
+            account_type = "VIP"
+            break
+
+        else:
+            print("Invalid choice. Please select 1 or 2.")
+
+    # Save Account
+    accounts[username] = {
+        "name": name,
+        "email": email,
+        "password": password,
+        "year_level": year_level,
+        "academic_year": academic_year,
+        "section": section,
+        "subjects": subjects,
+        "account_type": account_type
+    }
+
+    # Account Created
+    print("\n==========================================")
+    print("       PLANORA ACCOUNT CREATED!")
+    print("==========================================")
+    print("Welcome to Planora,", name + "!")
+    print("You can now log in to your account.")
+    print("==========================================")
+
+
+# ==========================================
+#             LOGIN FUNCTION
+# ==========================================
+
+def Login():
+
+    print("\n==========================================")
+    print("              PLANORA LOGIN")
+    print("==========================================")
+
+    username = input("Enter your username: ").strip()
+    password = input("Enter your password: ")
+
+    if username in accounts:
+
+        if accounts[username]["password"] == password:
+
+            user = accounts[username]
+
+            print("\n==========================================")
+            print("          LOGIN SUCCESSFUL!")
+            print("==========================================")
+
+            print("Welcome back,", user["name"] + "!")
+            print("Username:", username)
+            print("School Email:", user["email"])
+            print("Year Level:", user["year_level"])
+            print("Academic Year:", user["academic_year"])
+            print("Section:", user["section"])
+            print("Account Type:", user["account_type"])
+
+            print("\nSubjects:")
+
+            for i, subject in enumerate(
+                user["subjects"], start=1
+            ):
+                print(f"{i}. {subject}")
+
+            print("==========================================")
+
+        else:
+            print("\nIncorrect password.")
+
+    else:
+        print("\nAccount not found.")
+        print("Please create an account first.")
+
+
+# ==========================================
+#               MAIN MENU
+# ==========================================
+
+while True:
+
+    print("\n==========================================")
+    print("                PLANORA")
+    print("       SMART SCHEDULING APPLICATION")
+    print("==========================================")
+
+    print("\nMAIN MENU")
+    print("------------------------------------------")
+    print("1. Create an Account")
+    print("2. Log In")
+    print("3. Exit")
+    print("------------------------------------------")
+
+    # Ask for the user's choice
+    option = input(
+        "Enter the number of the selected option: "
+    ).strip()
+
+    # Create Account
+    if option == "1":
+
+        Create_Account()
+
+    # Log In
+    elif option == "2":
+
+        Login()
+
+    # Exit
+    elif option == "3":
+
+        print("\n==========================================")
+        print("     Thank you for choosing Planora!")
+        print("     Thank you for using Planora!")
+        print("        Have a productive day!")
+        print("==========================================")
+
+        break
+
+    # Invalid Choice
+    else:
+
+        print("\nInvalid choice.")
+        print("Please select 1, 2, or 3.")
+
+
+
+
+
+
+
+
